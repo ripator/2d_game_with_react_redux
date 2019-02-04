@@ -1,0 +1,27 @@
+.row {
+   display: flex;
+   background-color: #6ab04c;
+}
+
+.tile {
+    display: inline-flex;    
+}
+
+
+.rock {
+    background-image: url('/tiles/rock.png');
+}
+
+.tree {
+    background-image: url('/tiles/tree.png');
+}
+
+.treasure{
+    background-image: url('/tiles/chest.png');
+}
+
+.enemy {
+    background-image: url('/tiles/enemy.png');
+    background-repeat: no-repeat; 
+    background-position: center;
+}

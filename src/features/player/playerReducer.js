@@ -5,7 +5,8 @@ const initialState = {
     position: [0, 0],
     spriteLocation: "0px 0px",
     direction: "RIGHT",
-    spriteIndex: 0
+    spriteIndex: 0,
+    score: 0,
 }
 
 const playerReducer = (state=initialState, action) => {

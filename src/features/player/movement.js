@@ -52,24 +52,50 @@ export default function handleMovement(player){
         const tiles = store.getState().map.tiles;
         const x = newPosition[0] / playerSize;
         const y = newPosition[1] / playerSize;
-        const nextTile = tiles[y][x]
+        const nextTile = tiles[y][x];
         return (nextTile < 5);
     }
+
+    function addScore(newPosition){
+        const mapCopy = Object.assign({}, store.getState().map);
+        const tilesCopy = mapCopy.tiles.slice();
+        const x = newPosition[0] / playerSize;
+        const y = newPosition[1] / playerSize;
+        const nextTile = tilesCopy[y][x];
+        let newScore = store.getState().player.score;
+
+        if(nextTile ===2) {
+            newScore += 200;
+            tilesCopy[y].splice(x, 1, 0);
+            
+            store.dispatch({
+                type: "Add_Tiles",
+                payload: {
+                    tiles: tilesCopy,
+                }
+            })
+           
+        }
+        return newScore;
+    }
+
+    
 
     /* we create an action and we dispatch it,
      which is - send it to our store
       using "store.dispatch()"
     */
     function dispatchMove(direction, newPosition) {
-        const spriteIndex = getSpriteIndex()
+        const spriteIndex = getSpriteIndex();
         store.dispatch({
-            type: "Move_Player",
+            type: "Move_Player", 
             payload: {
                 position: newPosition,
                 direction: direction,
                 spriteIndex: spriteIndex,
-                spriteLocation: getPlayerLocation(direction, spriteIndex)
-            }
+                spriteLocation: getPlayerLocation(direction, spriteIndex),
+                score: addScore(newPosition)
+            },
         })
     }
     

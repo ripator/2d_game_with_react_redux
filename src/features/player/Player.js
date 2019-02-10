@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import handleMovement from "./movement"
 
 function Player(props){
+    console.log(props);
     return(
         <div
             style = {{

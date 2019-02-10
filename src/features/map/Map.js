@@ -22,50 +22,64 @@ function getTileSprite(type){
             console.log("tile")
     }
 }
-function MapTile(props){
-    return(
-        <div className={`tile ${getTileSprite(props.tile)}`}
-         style={{
-             height: playerSize,
-             width: playerSize
-        }}/>
-    )
+
+
+class MapTile extends React.Component{
+    render(){
+        return(
+            <div className={`tile ${getTileSprite(this.props.tile)}`}
+             style={{
+                 height: playerSize,
+                 width: playerSize
+            }}/>
+        )
+    }
+    
 }
 
-function MapRow(props){
-    return(
-        <div className="row">
+class MapRow extends React.Component{
+    render(){
+        return(
+            <div className="row">
+                {
+                    this.props.tiles.map((tile, i) => <MapTile key={i} tile={tile} />)
+                }
+            </div>
+            
+         )
+    }
+    
+}
+
+class Map extends React.Component{
+    render(){
+        console.log(this.props.tiles);
+        return(
+            <div
+              style={{
+                  position: "relative",
+                  top: "0px",
+                  left: "0px",
+                  width: "800px",
+                  height: "400px",
+                  border: "4px solid white",
+                  margin: "20px auto"
+              }}  
+            >
             {
-                props.tiles.map((tile, i) => <MapTile key={i} tile={tile} />)
+                this.props.tiles.map((row, i) => <MapRow key={i} tiles ={row} />)
             }
-        </div>
-        
-     )
+            </div>
+        )
+    }
+    
 }
 
-function Map(props){
-    return(
-        <div
-          style={{
-              position: "relative",
-              top: "0px",
-              left: "0px",
-              width: "800px",
-              height: "400px",
-              border: "4px solid white",
-              margin: "20px auto"
-          }}  
-        >
-        {
-            props.tiles.map((row, i) => <MapRow key={i} tiles ={row} />)
-        }
-        </div>
-    )
-}
 function mapStateToProps(state){
     return {
         tiles: state.map.tiles,
     }
 }
+
 
 export default connect(mapStateToProps)(Map);
